@@ -12,9 +12,7 @@ import std.stdio : stdout;
 
 
 string[] glob(string pattern) {
-	import std.file : exists, isDir, dirEntries, SpanMode, FileException;
-	import std.path : buildPath, dirName, baseName, globMatch;
-	import std.algorithm : filter, map;
+	import std.algorithm : filter;
 	import std.array : array;
 	import std.string : split;
 
@@ -33,7 +31,7 @@ string[] glob(string pattern) {
 }
 
 private string[] getMatches(string[] roots, string[] parts) {
-	import std.path : buildPath, dirName, baseName, globMatch;
+	import std.path : baseName, globMatch;
 
 	string[] matches;
 	string part = parts[0];
@@ -55,7 +53,7 @@ private string[] getMatches(string[] roots, string[] parts) {
 
 private string[] getEntries(string path_name) {
 	import std.file : dirEntries, SpanMode, FileException;
-	import std.algorithm : filter, map;
+	import std.algorithm : map;
 	import std.array : array;
 
 	string[] entries;
