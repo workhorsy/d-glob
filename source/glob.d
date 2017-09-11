@@ -89,11 +89,9 @@ unittest {
 	import std.stdio : stdout;
 	import glob : glob;
 
-	foreach (entry ; glob("/usr/*/python*")) {
-		stdout.writefln("%s", entry);
-	}
+	string[] entries = glob("/usr/*/python*");
 
-	// outputs
+	// entries would contain:
 	/*
 	/usr/bin/python2
 	/usr/bin/python2.7
@@ -104,11 +102,9 @@ unittest {
 	/usr/lib/python3.5
 	*/
 
-	foreach (entry ; glob("/usr/bin/python?")) {
-		stdout.writefln("%s", entry);
-	}
+	entries = glob("/usr/bin/python?");
 
-	// outputs
+	// entries would contain:
 	/*
 	/usr/bin/python2
 	/usr/bin/python3
