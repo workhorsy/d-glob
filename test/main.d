@@ -5,7 +5,7 @@ import std.stdio : stdout, stderr;
 import std.datetime : Date;
 
 unittest {
-	import glob : glob, glob2;
+	import glob : glob3;
 	describe("glob",
 /*
 		it("Should glob nothing on invalid path", delegate() {
@@ -23,7 +23,7 @@ unittest {
 		}),
 */
 		it("Should glob dir name single ?", delegate() {
-			glob2("/usr/bi?/python").shouldEqual(["/usr/bin/python"]);
+			glob3("/usr/*/python*").shouldEqual(["/usr/bin/python"]);
 		}),
 	);
 }

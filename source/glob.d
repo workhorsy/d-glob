@@ -121,15 +121,84 @@ string[] glob2(string path_name) {
 			}
 			stdout.writefln("        !!! entries: %s", entries);
 			foreach (entry ; entries) {
-				stdout.writefln("            !!! entry: %s", baseName(entry));
+				//stdout.writefln("            !!! entry: %s", baseName(entry));
 				if (globMatch(baseName(entry), search_base)) {
-					stdout.writefln("                !!! match: %s", baseName(entry));
+					//string match = '/' ~ buildPath(searching_parts);
+					stdout.writefln("                !!! match: %s", entry);
 				}
 			}
 		}
 	}
 
 	return retvals;
+}
+
+string[] glob3(string pattern) {
+	import std.file : exists, isDir, dirEntries, SpanMode, FileException;
+	import std.path : buildPath, dirName, baseName, globMatch;
+	import std.algorithm : filter, map;
+	import std.array : array;
+	import std.string : split;
+
+	string[] retval;
+
+	//string dir_name = dirName(path_name);
+	//string base_name = baseName(path_name);
+	stdout.writefln("!!! pattern: %s", pattern);
+	string[] parts = pattern.split("/").filter!(n => n != "").array();
+	stdout.writefln("!!! parts: %s", parts);
+	//string[] searching_parts;
+	string[] roots = ["/"];
+
+	while (parts.length > 0) {
+		//stdout.writefln("!!! part: %s", part);
+
+		//string searching = '/' ~ buildPath(searching_parts);
+		//string[] entries = getEntries(searching);
+		roots = getMatches(roots, parts);
+		parts = parts[1 .. $];
+	}
+
+	return retval;
+}
+
+string[] getMatches(string[] roots, string[] parts) {
+	import std.path : buildPath, dirName, baseName, globMatch;
+
+	string[] matches;
+	string part = parts[0];
+	stdout.writefln("!!! part: %s", part);
+	stdout.writefln("!!! roots: %s", roots);
+	
+	foreach (root ; roots) {
+		string searching = root;
+		stdout.writefln("    !!! searching: %s", searching);
+		string[] entries = getEntries(searching);
+		//stdout.writefln("    !!! entries: %s", entries);
+		foreach (entry ; entries) {
+			//stdout.writefln("            !!! entry: %s", baseName(entry));
+			if (globMatch(baseName(entry), part)) {
+				//string match = '/' ~ buildPath(searching_parts);
+				stdout.writefln("                !!! match: %s", entry);
+				matches ~= entry;
+			}
+		}
+	}
+
+	return matches;
+}
+
+string[] getEntries(string path_name) {
+	import std.file : dirEntries, SpanMode, FileException;
+	import std.algorithm : filter, map;
+	import std.array : array;
+
+	string[] entries;
+	try {
+		entries = dirEntries(path_name, SpanMode.shallow).map!(n => n.name).array();
+	} catch (FileException) {
+	}
+	return entries;
 }
 
 private bool hasWildCard(string s) {
