@@ -1,0 +1,9 @@
+{
+	"name": "example",
+	"targetType": "executable",
+	"sourceFiles": ["../source/glob.d"],
+	"mainSourceFile": "example.d",
+
+	"dependencies": {
+	},
+}
