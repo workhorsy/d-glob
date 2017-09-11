@@ -18,16 +18,16 @@ string[] glob(string pattern) {
 	import std.array : array;
 	import std.string : split;
 
-	stdout.writefln("!!! pattern: %s", pattern);
 	string[] parts = pattern.split("/").filter!(n => n != "").array();
-	stdout.writefln("!!! parts: %s", parts);
 	string[] roots = ["/"];
+	stdout.writefln("parts: %s", parts);
+	stdout.writefln("pattern: \"%s\"", pattern);
 
 	while (parts.length > 0) {
 		roots = getMatches(roots, parts);
 		parts = parts[1 .. $];
+		stdout.writefln("            roots: %s", roots);
 	}
-	stdout.writefln("!!! roots: %s", roots);
 
 	return roots;
 }
@@ -37,17 +37,14 @@ private string[] getMatches(string[] roots, string[] parts) {
 
 	string[] matches;
 	string part = parts[0];
-	
+
 	foreach (root ; roots) {
 		string searching = root;
-		stdout.writefln("    !!! searching %s for %s", searching, part);
+		stdout.writefln("    searching \"%s\" for \"%s\"", searching, part);
 		string[] entries = getEntries(searching);
-		//stdout.writefln("    !!! entries: %s", entries);
 		foreach (entry ; entries) {
-			//stdout.writefln("            !!! entry: %s", baseName(entry));
 			if (globMatch(baseName(entry), part)) {
-				//string match = '/' ~ buildPath(searching_parts);
-				stdout.writefln("                !!! match: %s", entry);
+				stdout.writefln("        match: \"%s\"", entry);
 				matches ~= entry;
 			}
 		}
