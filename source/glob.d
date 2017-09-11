@@ -139,12 +139,17 @@ private string[] getMatches(string[] path_candidates, string pattern) {
 private string[] getEntries(string path_name) {
 	import std.file : dirEntries, SpanMode, FileException;
 	import std.algorithm : map, sort;
-	import std.array : array;
+	import std.array : array, replace;
 
 	string[] entries;
 	try {
 		entries = dirEntries(path_name, SpanMode.shallow).map!(n => n.name).array();
 	} catch (FileException) {
+	}
+
+	// Convert Windows file paths to posix format
+	version (Windows) {
+		entries = entries.map!(n => n.replace("\\", "/")).array();
 	}
 
 	entries.sort!("a < b");

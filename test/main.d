@@ -7,13 +7,21 @@ unittest {
 
 	describe("glob",
 		it("Should work with relative paths", delegate() {
-			glob("test/test_data/*").shouldEqual([
-				"test/test_data/aaa", "test/test_data/bbb", "test/test_data/ccc",
-				"test/test_data/test*", "test/test_data/test1", "test/test_data/test?"]);
+			version (Windows) {
+				glob("test/test_data/*").shouldEqual([
+					"test/test_data/aaa", "test/test_data/bbb", "test/test_data/ccc",
+					"test/test_data/test1"]);
+			} else {
+				glob("test/test_data/*").shouldEqual([
+					"test/test_data/aaa", "test/test_data/bbb", "test/test_data/ccc",
+					"test/test_data/test*", "test/test_data/test1", "test/test_data/test?"]);
+			}
 		}),
 		it("Should work with literals", delegate() {
-			glob("test/test_data/test[?]").shouldEqual(["test/test_data/test?"]);
-			glob("test/test_data/test[*]").shouldEqual(["test/test_data/test*"]);
+			version (Windows) { } else {
+				glob("test/test_data/test[?]").shouldEqual(["test/test_data/test?"]);
+				glob("test/test_data/test[*]").shouldEqual(["test/test_data/test*"]);
+			}
 		}),
 		it("Should glob nothing on invalid path", delegate() {
 			glob("/does/not/exist").shouldEqual([]);
