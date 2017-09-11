@@ -4,6 +4,7 @@ import BDD;
 
 unittest {
 	import glob : glob;
+
 	describe("glob",
 		it("Should work with relative paths", delegate() {
 			glob("test/test_data/*").shouldEqual([

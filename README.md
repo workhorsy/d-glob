@@ -4,7 +4,22 @@ Search file systems with glob patterns using the D programming language
 # Example
 
 ```d
-FIXME
+import std.stdio : stdout;
+import glob : glob;
+
+foreach (entry ; glob("/usr/*/python*")) {
+	stdout.writefln("%s", entry);
+}
+
+/*
+/usr/bin/python2
+/usr/bin/python2.7
+/usr/bin/python3
+/usr/bin/python3.5
+/usr/lib/python2.7
+/usr/lib/python3
+/usr/lib/python3.5
+*/
 
 ```
 
