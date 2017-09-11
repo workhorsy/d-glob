@@ -5,6 +5,9 @@ import BDD;
 unittest {
 	import glob : glob;
 	describe("glob",
+		it("Should fuck", delegate() {
+			glob("test/test_data/*").shouldEqual(["test/test_data/bbb", "test/test_data/ccc", "test/test_data/aaa"]);
+		}),
 		it("Should glob nothing on invalid path", delegate() {
 			glob("/does/not/exist").shouldEqual([]);
 		}),

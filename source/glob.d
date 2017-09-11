@@ -12,13 +12,16 @@ import std.stdio : stdout;
 
 
 string[] glob(string path_name) {
-	import std.algorithm : filter;
+	import std.algorithm : map, filter;
 	import std.array : array;
-	import std.string : split;
+	import std.string : split, startsWith;
+	import std.file : getcwd;
 
 	// Break the path into a stack separated by /
+	string cwd = getcwd();
+	bool is_relative_path = ! path_name.startsWith("/");
 	string[] patterns = path_name.split("/").filter!(n => n != "").array();
-	string[] paths = ["/"];
+	string[] paths = (is_relative_path ? [cwd] : ["/"]);
 //	stdout.writefln("path_name: \"%s\"", path_name);
 //	stdout.writefln("patterns: %s", patterns);
 
@@ -31,6 +34,12 @@ string[] glob(string path_name) {
 		// Get the matches
 		paths = getMatches(paths, pattern);
 //		stdout.writefln("            paths: %s", paths);
+	}
+
+	// Convert from an absolute path to a relative one, if path_name is relative
+	if (is_relative_path) {
+		size_t len = cwd.length + 1;
+		paths = paths.map!(n => n[len .. $]).array();
 	}
 
 	return paths;
