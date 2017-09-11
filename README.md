@@ -25,7 +25,7 @@ foreach (entry ; glob("/usr/*/python*")) {
 
 # Documentation
 
-[https://workhorsy.github.io/d-glob/0.1.0/](https://workhorsy.github.io/d-glob/0.1.0/)
+[https://workhorsy.github.io/d-glob/0.2.0/](https://workhorsy.github.io/d-glob/0.2.0/)
 
 # Generate documentation
 
