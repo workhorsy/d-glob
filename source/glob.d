@@ -11,20 +11,25 @@ module glob;
 import std.stdio : stdout;
 
 
-string[] glob(string pattern) {
+string[] glob(string path_name) {
 	import std.algorithm : filter;
 	import std.array : array;
 	import std.string : split;
 
-	string[] patterns = pattern.split("/").filter!(n => n != "").array();
+	// Break the path into a stack separated by /
+	string[] patterns = path_name.split("/").filter!(n => n != "").array();
 	string[] paths = ["/"];
-	stdout.writefln("pattern: \"%s\"", pattern);
+	stdout.writefln("path_name: \"%s\"", path_name);
 	stdout.writefln("patterns: %s", patterns);
 
+	// For each pattern get the directory entries that match the pattern
 	while (patterns.length > 0) {
-		string part = patterns[0];
-		paths = getMatches(paths, part);
+		// Pop the next pattern off the stack
+		string pattern = patterns[0];
 		patterns = patterns[1 .. $];
+
+		// Get the matches
+		paths = getMatches(paths, pattern);
 		stdout.writefln("            paths: %s", paths);
 	}
 
@@ -36,6 +41,8 @@ private string[] getMatches(string[] path_candidates, string pattern) {
 
 	string[] matches;
 
+	// Iterate through all the entries in the paths
+	// and return the ones that match the pattern
 	foreach (path ; path_candidates) {
 		stdout.writefln("    searching \"%s\" for \"%s\"", path, pattern);
 		foreach (entry ; getEntries(path)) {
@@ -49,6 +56,7 @@ private string[] getMatches(string[] path_candidates, string pattern) {
 	return matches;
 }
 
+// Returns the name of all the shallow entries in a directory
 private string[] getEntries(string path_name) {
 	import std.file : dirEntries, SpanMode, FileException;
 	import std.algorithm : map;
