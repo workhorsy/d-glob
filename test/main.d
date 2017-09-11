@@ -1,8 +1,6 @@
 
 
 import BDD;
-import std.stdio : stdout, stderr;
-import std.datetime : Date;
 
 unittest {
 	import glob : glob;
