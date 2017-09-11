@@ -12,17 +12,41 @@ import std.stdio : stdout;
 
 
 string[] glob(string path_name) {
-	import std.file : exists, isDir;
-	import std.path : buildPath, dirName, baseName;
+	import std.file : exists, isDir, dirEntries, SpanMode, FileException;
+	import std.path : buildPath, dirName, baseName, globMatch;
+	import std.algorithm : filter, map;
+	import std.array : array;
 	string[] retvals;
 
 	// Break the path into base name and dir name
 	string dir_name = dirName(path_name);
 	string base_name = baseName(path_name);
+//	stdout.writefln("!!! path_name: %s", path_name);
+//	stdout.writefln("!!! dir_name: %s", dir_name);
+//	stdout.writefln("!!! base_name: %s", base_name);
 
 	// The path exists and has no wild cards
-	if (! hasWildCard(path_name) && exists(path_name)) {
+	if (exists(path_name) && ! hasWildCard(path_name)) {
 		retvals ~= path_name;
+		return retvals;
+	}
+
+//	stdout.writefln("!!! exists(dir_name): %s", exists(dir_name));
+//	stdout.writefln("!!! hasWildCard(base_name): %s", hasWildCard(base_name));
+	// The base path exists and the dir name has wild cards
+	if (exists(dir_name) && hasWildCard(base_name)) {
+		string[] entries;
+		try {
+			entries = dirEntries(dir_name, SpanMode.shallow).map!(n => n.name).array();
+		} catch (FileException) {
+		}
+		foreach (entry ; entries) {
+			//stdout.writefln("!!! entry: %s, base_name: %s", baseName(entry), base_name);
+			if (globMatch(baseName(entry), base_name)) {
+				retvals ~= entry;
+			}
+		}
+
 		return retvals;
 	}
 
