@@ -19,8 +19,8 @@ string[] glob(string path_name) {
 	// Break the path into a stack separated by /
 	string[] patterns = path_name.split("/").filter!(n => n != "").array();
 	string[] paths = ["/"];
-	stdout.writefln("path_name: \"%s\"", path_name);
-	stdout.writefln("patterns: %s", patterns);
+//	stdout.writefln("path_name: \"%s\"", path_name);
+//	stdout.writefln("patterns: %s", patterns);
 
 	// For each pattern get the directory entries that match the pattern
 	while (patterns.length > 0) {
@@ -30,7 +30,7 @@ string[] glob(string path_name) {
 
 		// Get the matches
 		paths = getMatches(paths, pattern);
-		stdout.writefln("            paths: %s", paths);
+//		stdout.writefln("            paths: %s", paths);
 	}
 
 	return paths;
@@ -44,10 +44,10 @@ private string[] getMatches(string[] path_candidates, string pattern) {
 	// Iterate through all the entries in the paths
 	// and return the ones that match the pattern
 	foreach (path ; path_candidates) {
-		stdout.writefln("    searching \"%s\" for \"%s\"", path, pattern);
+//		stdout.writefln("    searching \"%s\" for \"%s\"", path, pattern);
 		foreach (entry ; getEntries(path)) {
 			if (globMatch(baseName(entry), pattern)) {
-				stdout.writefln("        match: \"%s\"", entry);
+//				stdout.writefln("        match: \"%s\"", entry);
 				matches ~= entry;
 			}
 		}
