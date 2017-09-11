@@ -3,6 +3,41 @@
 // Search file systems with glob patterns using the D programming language
 // https://github.com/workhorsy/d-glob
 
+/++
+Search file systems with glob patterns using the D programming language
+
+See Glob  $(LINK https://en.wikipedia.org/wiki/Glob_(programming))
+
+Home page:
+$(LINK https://github.com/workhorsy/d-glob)
+
+Version: 0.1.0
+
+License:
+Boost Software License - Version 1.0
+
+Examples:
+----
+import std.stdio : stdout;
+import glob : glob;
+
+foreach (entry ; glob("/usr/*/python*")) {
+	stdout.writefln("%s", entry);
+}
+
+// outputs
+/*
+/usr/bin/python2
+/usr/bin/python2.7
+/usr/bin/python3
+/usr/bin/python3.5
+/usr/lib/python2.7
+/usr/lib/python3
+/usr/lib/python3.5
+*/
+----
++/
+
 // https://en.wikipedia.org/wiki/Glob_%28programming%29
 
 module glob;
@@ -10,7 +45,11 @@ module glob;
 
 import std.stdio : stdout;
 
-
+/++
+Return all the paths that match the pattern
+Params:
+ path_name = The path with paterns to match.
++/
 string[] glob(string path_name) {
 	import std.algorithm : map, filter;
 	import std.array : array;
@@ -43,6 +82,37 @@ string[] glob(string path_name) {
 	}
 
 	return paths;
+}
+
+///
+unittest {
+	import std.stdio : stdout;
+	import glob : glob;
+
+	foreach (entry ; glob("/usr/*/python*")) {
+		stdout.writefln("%s", entry);
+	}
+
+	// outputs
+	/*
+	/usr/bin/python2
+	/usr/bin/python2.7
+	/usr/bin/python3
+	/usr/bin/python3.5
+	/usr/lib/python2.7
+	/usr/lib/python3
+	/usr/lib/python3.5
+	*/
+
+	foreach (entry ; glob("/usr/bin/python?")) {
+		stdout.writefln("%s", entry);
+	}
+
+	// outputs
+	/*
+	/usr/bin/python2
+	/usr/bin/python3
+	*/
 }
 
 private string[] getMatches(string[] path_candidates, string pattern) {
