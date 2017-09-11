@@ -16,32 +16,30 @@ string[] glob(string pattern) {
 	import std.array : array;
 	import std.string : split;
 
-	string[] parts = pattern.split("/").filter!(n => n != "").array();
-	string[] roots = ["/"];
-	stdout.writefln("parts: %s", parts);
+	string[] patterns = pattern.split("/").filter!(n => n != "").array();
+	string[] paths = ["/"];
 	stdout.writefln("pattern: \"%s\"", pattern);
+	stdout.writefln("patterns: %s", patterns);
 
-	while (parts.length > 0) {
-		roots = getMatches(roots, parts);
-		parts = parts[1 .. $];
-		stdout.writefln("            roots: %s", roots);
+	while (patterns.length > 0) {
+		string part = patterns[0];
+		paths = getMatches(paths, part);
+		patterns = patterns[1 .. $];
+		stdout.writefln("            paths: %s", paths);
 	}
 
-	return roots;
+	return paths;
 }
 
-private string[] getMatches(string[] roots, string[] parts) {
+private string[] getMatches(string[] path_candidates, string pattern) {
 	import std.path : baseName, globMatch;
 
 	string[] matches;
-	string part = parts[0];
 
-	foreach (root ; roots) {
-		string searching = root;
-		stdout.writefln("    searching \"%s\" for \"%s\"", searching, part);
-		string[] entries = getEntries(searching);
-		foreach (entry ; entries) {
-			if (globMatch(baseName(entry), part)) {
+	foreach (path ; path_candidates) {
+		stdout.writefln("    searching \"%s\" for \"%s\"", path, pattern);
+		foreach (entry ; getEntries(path)) {
+			if (globMatch(baseName(entry), pattern)) {
 				stdout.writefln("        match: \"%s\"", entry);
 				matches ~= entry;
 			}
