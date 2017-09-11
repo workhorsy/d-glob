@@ -11,7 +11,7 @@ module glob;
 import std.stdio : stdout;
 
 
-string[] glob3(string pattern) {
+string[] glob(string pattern) {
 	import std.file : exists, isDir, dirEntries, SpanMode, FileException;
 	import std.path : buildPath, dirName, baseName, globMatch;
 	import std.algorithm : filter, map;
