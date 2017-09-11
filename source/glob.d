@@ -140,26 +140,18 @@ string[] glob3(string pattern) {
 	import std.array : array;
 	import std.string : split;
 
-	string[] retval;
-
-	//string dir_name = dirName(path_name);
-	//string base_name = baseName(path_name);
 	stdout.writefln("!!! pattern: %s", pattern);
 	string[] parts = pattern.split("/").filter!(n => n != "").array();
 	stdout.writefln("!!! parts: %s", parts);
-	//string[] searching_parts;
 	string[] roots = ["/"];
 
 	while (parts.length > 0) {
-		//stdout.writefln("!!! part: %s", part);
-
-		//string searching = '/' ~ buildPath(searching_parts);
-		//string[] entries = getEntries(searching);
 		roots = getMatches(roots, parts);
 		parts = parts[1 .. $];
 	}
+	stdout.writefln("!!! roots: %s", roots);
 
-	return retval;
+	return roots;
 }
 
 string[] getMatches(string[] roots, string[] parts) {
@@ -167,12 +159,10 @@ string[] getMatches(string[] roots, string[] parts) {
 
 	string[] matches;
 	string part = parts[0];
-	stdout.writefln("!!! part: %s", part);
-	stdout.writefln("!!! roots: %s", roots);
 	
 	foreach (root ; roots) {
 		string searching = root;
-		stdout.writefln("    !!! searching: %s", searching);
+		stdout.writefln("    !!! searching %s for %s", searching, part);
 		string[] entries = getEntries(searching);
 		//stdout.writefln("    !!! entries: %s", entries);
 		foreach (entry ; entries) {
