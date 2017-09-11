@@ -32,7 +32,7 @@ string[] glob(string pattern) {
 	return roots;
 }
 
-string[] getMatches(string[] roots, string[] parts) {
+private string[] getMatches(string[] roots, string[] parts) {
 	import std.path : buildPath, dirName, baseName, globMatch;
 
 	string[] matches;
@@ -56,7 +56,7 @@ string[] getMatches(string[] roots, string[] parts) {
 	return matches;
 }
 
-string[] getEntries(string path_name) {
+private string[] getEntries(string path_name) {
 	import std.file : dirEntries, SpanMode, FileException;
 	import std.algorithm : filter, map;
 	import std.array : array;
