@@ -68,7 +68,7 @@ private string[] getMatches(string[] path_candidates, string pattern) {
 // Returns the name of all the shallow entries in a directory
 private string[] getEntries(string path_name) {
 	import std.file : dirEntries, SpanMode, FileException;
-	import std.algorithm : map;
+	import std.algorithm : map, sort;
 	import std.array : array;
 
 	string[] entries;
@@ -76,6 +76,8 @@ private string[] getEntries(string path_name) {
 		entries = dirEntries(path_name, SpanMode.shallow).map!(n => n.name).array();
 	} catch (FileException) {
 	}
+
+	entries.sort!("a < b");
 	return entries;
 }
 
