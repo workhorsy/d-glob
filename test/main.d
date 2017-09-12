@@ -32,10 +32,6 @@ unittest {
 			glob("test/test_data/aaa/example*").shouldEqual([
 				"test/test_data/aaa/example", "test/test_data/aaa/example2", "test/test_data/aaa/example9"]);
 		}),
-		it("Should glob base name single ?", delegate() {
-			glob("test/test_data/aaa/example?").shouldEqual([
-				"test/test_data/aaa/example2", "test/test_data/aaa/example9"]);
-		}),
 		it("Should glob multiple *", delegate() {
 			glob("test/test_data/*/*").shouldEqual([
 				"test/test_data/aaa/example", "test/test_data/aaa/example2",
