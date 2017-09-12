@@ -11,6 +11,11 @@ unittest {
 				"test/test_data/aaa", "test/test_data/bbb", "test/test_data/ccc",
 				"test/test_data/test1"]);
 		}),
+		it("Should work with empty paths", delegate() {
+			glob("/").shouldEqual(["/"]);
+			glob("").shouldEqual([]);
+			glob(" ").shouldEqual([]);
+		}),
 		it("Should glob nothing on invalid path", delegate() {
 			glob("/does/not/exist").shouldEqual([]);
 			glob("does/not/exist").shouldEqual([]);

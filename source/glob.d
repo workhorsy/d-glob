@@ -78,7 +78,11 @@ string[] glob(string path_name) {
 	// Convert from an absolute path to a relative one, if path_name is relative
 	if (is_relative_path) {
 		size_t len = cwd.length + 1;
-		paths = paths.map!(n => n[len .. $]).array();
+		paths =
+			paths
+				.filter!(n => n.length > len) // Remove paths that are just the prefix
+				.map!(n => n[len .. $]) // Remove the path prefix
+				.array();
 	}
 
 	return paths;
