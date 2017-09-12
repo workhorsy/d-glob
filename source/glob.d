@@ -57,10 +57,14 @@ string[] glob(string path_name) {
 	import std.file : getcwd;
 
 	// Break the path into a stack separated by /
+	string[] patterns = path_name.split("/").filter!(n => n != "").array();
+
+	// Figure out if using a relative path
 	string cwd = getcwd();
 	bool is_relative_path = ! path_name.startsWith("/");
-	string[] patterns = path_name.split("/").filter!(n => n != "").array();
-	string[] paths = (is_relative_path ? [cwd] : ["/"]);
+
+	// Make the first path to search the cwd or /
+	string[] paths = [is_relative_path ? cwd : "/"];
 //	stdout.writefln("path_name: \"%s\"", path_name);
 //	stdout.writefln("patterns: %s", patterns);
 
