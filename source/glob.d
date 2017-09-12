@@ -15,27 +15,6 @@ Version: 0.2.0
 
 License:
 Boost Software License - Version 1.0
-
-Examples:
-----
-import std.stdio : stdout;
-import glob : glob;
-
-foreach (entry ; glob("/usr/*/python*")) {
-	stdout.writefln("%s", entry);
-}
-
-// outputs
-/*
-/usr/bin/python2
-/usr/bin/python2.7
-/usr/bin/python3
-/usr/bin/python3.5
-/usr/lib/python2.7
-/usr/lib/python3
-/usr/lib/python3.5
-*/
-----
 +/
 
 // https://en.wikipedia.org/wiki/Glob_%28programming%29
