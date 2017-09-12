@@ -46,6 +46,16 @@ unittest {
 				"test/test_data/aaa/example2", "test/test_data/aaa/example9",
 				"test/test_data/bbb/example2", "test/test_data/bbb/example9"]);
 		}),
+		it("Should work with Windows style path separators", delegate() {
+			// Try \\
+			glob("test\\test_data\\aaa\\example*").shouldEqual([
+				"test/test_data/aaa/example", "test/test_data/aaa/example2",
+				"test/test_data/aaa/example4", "test/test_data/aaa/example9"]);
+			// Try \
+			glob(`test\test_data\aaa\example*`).shouldEqual([
+				"test/test_data/aaa/example", "test/test_data/aaa/example2",
+				"test/test_data/aaa/example4", "test/test_data/aaa/example9"]);
+		}),
 	);
 }
 

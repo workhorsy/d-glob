@@ -52,9 +52,12 @@ Params:
 +/
 string[] glob(string path_name) {
 	import std.algorithm : map, filter;
-	import std.array : array;
+	import std.array : array, replace;
 	import std.string : split, startsWith;
 	import std.file : getcwd;
+
+	// Convert the Windows path to a posix path
+	path_name = path_name.replace("\\", "/");
 
 	// Break the path into a stack separated by /
 	string[] patterns = path_name.split("/").filter!(n => n != "").array();
