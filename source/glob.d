@@ -100,25 +100,45 @@ unittest {
 	import std.stdio : stdout;
 	import glob : glob;
 
-	string[] entries = glob("/usr/*/python*");
-
-	// entries would contain:
+	// Use * to match zero or more instances of a character
+	string[] entries = glob("/usr/bin/python*");
 	/*
+	entries would contain:
 	/usr/bin/python2
 	/usr/bin/python2.7
 	/usr/bin/python3
 	/usr/bin/python3.5
-	/usr/lib/python2.7
-	/usr/lib/python3
-	/usr/lib/python3.5
 	*/
 
-	entries = glob("/usr/bin/python?");
-
-	// entries would contain:
+	// Use ? to match one instance of a character
+	entries = glob("/usr/bin/python2.?");
 	/*
+	entries would contain:
+	/usr/bin/python2.6
+	/usr/bin/python2.7
+	*/
+
+	// Use [] to match one instance of a character between the brackets
+	entries = glob("/usr/bin/python[23]");
+	/*
+	entries would contain:
 	/usr/bin/python2
 	/usr/bin/python3
+	*/
+
+	// Use [!] to match one instance of a character NOT between the brackets
+	entries = glob("/usr/bin/python[!3]");
+	/*
+	entries would contain:
+	/usr/bin/python2
+	*/
+
+	// Use {} to match any of the full strings
+	entries = glob("/usr/bin/{python,ruby}");
+	/*
+	entries would contain:
+	/usr/bin/python
+	/usr/bin/ruby
 	*/
 }
 
