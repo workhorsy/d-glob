@@ -56,6 +56,14 @@ unittest {
 				"test/test_data/aaa/example", "test/test_data/aaa/example2",
 				"test/test_data/aaa/example4", "test/test_data/aaa/example9"]);
 		}),
+		it("Should work with unicode", delegate() {
+			glob("test/test_unicode/*/some_*_{漢字,עִבְרִית}").shouldEqual([
+				"test/test_unicode/some_russian_ру́сский/some_hebrew_עִבְרִית",
+				"test/test_unicode/some_russian_ру́сский/some_kanji_漢字"]);
+
+			glob("test/test_unicode/*{ру́сский}*/*漢字*").shouldEqual([
+				"test/test_unicode/some_russian_ру́сский/some_kanji_漢字"]);
+		}),
 	);
 }
 
