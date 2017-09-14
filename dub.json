@@ -8,12 +8,24 @@
 	"copyright": "Copyright (c) 2017 Matthew Brennan Jones",
 	"license": "BSL-1.0",
 	"importPaths": ["source/"],
-
-	"dependencies": {
-		"bdd": "~>1.3.0",
-	},
-
-	"targetName": "glob",
-	"targetType": "staticLibrary",
 	"targetPath": "lib",
+
+	"configurations": [
+		{
+			"name": "default",
+			"targetName": "glob",
+			"targetType": "staticLibrary",
+			"dependencies": {
+			},
+		},
+		{
+			"name": "unittest",
+			"targetName": "glob-test",
+			"targetType": "executable",
+			"mainSourceFile": "test/main.d",
+			"dependencies": {
+				"bdd": "~>1.3.0",
+			},
+		},
+	],
 }

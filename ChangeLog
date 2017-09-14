@@ -2,3 +2,4 @@
 * Release 0.3.0
 	* Fixed Bug #1: globbing an empty string fails
 	* Fixed Bug #3: Globbing with Windows style path separators does not work
+	* Fixed Bug #2: Only require BDD for running tests
