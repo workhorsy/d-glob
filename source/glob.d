@@ -11,7 +11,7 @@ See Glob  $(LINK https://en.wikipedia.org/wiki/Glob_(programming))
 Home page:
 $(LINK https://github.com/workhorsy/d-glob)
 
-Version: 0.2.0
+Version: 0.3.0
 
 License:
 Boost Software License - Version 1.0
