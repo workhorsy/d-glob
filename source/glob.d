@@ -23,13 +23,14 @@ module glob;
 
 
 import std.stdio : stdout;
+import std.regex : regex, Regex;
 
 /++
 Return all the paths that match the pattern
 Params:
  path_name = The path with paterns to match.
 +/
-string[] glob(string path_name) {
+string[] glob(string path_name, bool is_regex=false) {
 	import std.algorithm : map, filter;
 	import std.array : array, replace;
 	import std.string : split, startsWith;
@@ -57,7 +58,7 @@ string[] glob(string path_name) {
 		patterns = patterns[1 .. $];
 
 		// Get the matches
-		paths = getMatches(paths, pattern);
+		paths = getMatches(paths, pattern, is_regex);
 //		stdout.writefln("            paths: %s", paths);
 	}
 
@@ -121,19 +122,46 @@ unittest {
 	*/
 }
 
-private string[] getMatches(string[] path_candidates, string pattern) {
+string[] globRegex(string path_regex) {
+	import std.string : startsWith, endsWith;
+
+	if (! path_regex.startsWith('^') || ! path_regex.endsWith('$')) {
+		throw new Exception("The regex must start with ^ and end with $.");
+	}
+
+	// Remove the regex ^ and $ from the start and end
+	string path_name = path_regex[1 .. $-1];
+
+	return glob(path_name, true);
+}
+
+private string[] getMatches(string[] path_candidates, string pattern, bool is_regex=false) {
 	import std.path : baseName, globMatch;
+	import std.regex : match;
 
 	string[] matches;
 
-	// Iterate through all the entries in the paths
-	// and return the ones that match the pattern
-	foreach (path ; path_candidates) {
-//		stdout.writefln("    searching \"%s\" for \"%s\"", path, pattern);
-		foreach (entry ; getEntries(path)) {
-			if (globMatch(baseName(entry), pattern)) {
-//				stdout.writefln("        match: \"%s\"", entry);
-				matches ~= entry;
+	if (is_regex) {
+		auto r = regex("^" ~ pattern ~ "$");
+		foreach (path ; path_candidates) {
+	//		stdout.writefln("    searching \"%s\" for \"%s\"", path, pattern);
+			foreach (entry ; getEntries(path)) {
+				if (match(baseName(entry), r)) {
+	//				stdout.writefln("        match: \"%s\"", entry);
+					matches ~= entry;
+				}
+			}
+		}
+	} else {
+		// Iterate through all the entries in the paths
+		// and return the ones that match the pattern
+		foreach (path ; path_candidates) {
+	//		stdout.writefln("    searching \"%s\" for \"%s\"", path, pattern);
+			foreach (entry ; getEntries(path)) {
+				if (globMatch(baseName(entry), pattern)) {
+	//				stdout.writefln("        match: \"%s\"", entry);
+					matches ~= entry;
+				}
 			}
 		}
 	}
