@@ -38,7 +38,7 @@ foreach (entry ; globRegex(`^/proc/[0-9]*$`)) {
 
 # Documentation
 
-[https://workhorsy.github.io/d-glob/0.3.0/](https://workhorsy.github.io/d-glob/0.3.0/)
+[https://workhorsy.github.io/d-glob/0.4.0/](https://workhorsy.github.io/d-glob/0.4.0/)
 
 # Generate documentation
 
