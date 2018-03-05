@@ -22,7 +22,6 @@ Boost Software License - Version 1.0
 module glob;
 
 
-import std.stdio : stdout;
 import std.regex : regex, Regex;
 
 /++
@@ -36,7 +35,6 @@ string[] glob(string path_name) {
 
 ///
 unittest {
-	import std.stdio : stdout;
 	import glob : glob;
 
 	// Use * to match zero or more instances of a character
@@ -101,7 +99,6 @@ string[] globRegex(string path_regex) {
 
 ///
 unittest {
-	import std.stdio : stdout;
 	import glob : globRegex;
 
 	// Use a regex to match all the number files in /proc/
