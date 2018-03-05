@@ -214,5 +214,3 @@ private string[] getEntries(string path_name) {
 	entries.sort!("a < b");
 	return entries;
 }
-
-

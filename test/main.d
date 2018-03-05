@@ -64,12 +64,10 @@ unittest {
 			glob("test/test_unicode/*{ру́сский}*/*漢字*").shouldEqual([
 				"test/test_unicode/some_russian_ру́сский/some_kanji_漢字"]);
 		}),
-		it("Should work with a regex", delegate() {
-			globRegex(`^test/test_regex/[0-9]*$`).shouldEqual([
-				"test/test_regex/111",
-				"test/test_regex/222",
-				"test/test_regex/333"]);
-		}),
+	);
+
+
+	describe("globRegex",
 		it("Should work with a regex", delegate() {
 			globRegex(`^test/test_regex/[0-9]*$`).shouldEqual([
 				"test/test_regex/111",
