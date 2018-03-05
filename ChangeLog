@@ -1,6 +1,7 @@
+* Release 0.4.0
+	* Fixed Bug #4: Add an option to use regexes as patterns.
 
 09/18/2017 Release 0.3.0
 	* Fixed Bug #1: globbing an empty string fails
 	* Fixed Bug #3: Globbing with Windows style path separators does not work
 	* Fixed Bug #2: Only require BDD for running tests
-	* Fixed Bug #4: Add an option to use regexes as patterns.
