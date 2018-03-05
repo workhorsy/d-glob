@@ -22,8 +22,6 @@ Boost Software License - Version 1.0
 module glob;
 
 
-import std.regex : regex, Regex;
-
 /++
 Return all the paths that match the glob pattern
 Params:
@@ -159,7 +157,7 @@ private string[] getGlobMatches(string path_name, bool is_regex) {
 
 private string[] getMatches(string[] path_candidates, string pattern, bool is_regex=false) {
 	import std.path : baseName, globMatch;
-	import std.regex : match;
+	import std.regex : match, regex;
 
 	string[] matches;
 
