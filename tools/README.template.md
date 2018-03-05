@@ -5,8 +5,10 @@ Search file systems with glob patterns using the D programming language
 
 ```d
 import std.stdio : stdout;
-import glob : glob;
+import glob : glob, globRegex;
 
+
+// Use glob to search by glob pattern
 foreach (entry ; glob("/usr/*/python*")) {
 	stdout.writefln("%s", entry);
 }
@@ -19,6 +21,17 @@ foreach (entry ; glob("/usr/*/python*")) {
 /usr/lib/python2.7
 /usr/lib/python3
 /usr/lib/python3.5
+*/
+
+// Use globRegex to search by regex pattern
+foreach (entry ; globRegex(`^/proc/[0-9]*$`)) {
+	stdout.writefln("%s", entry);
+}
+/*
+/proc/111
+/proc/245
+/proc/19533
+/proc/1
 */
 
 ```

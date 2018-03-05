@@ -3,7 +3,7 @@
 import BDD;
 
 unittest {
-	import glob : glob;
+	import glob : glob, globRegex;
 
 	describe("glob",
 		it("Should work with empty paths", delegate() {
@@ -63,6 +63,21 @@ unittest {
 
 			glob("test/test_unicode/*{ру́сский}*/*漢字*").shouldEqual([
 				"test/test_unicode/some_russian_ру́сский/some_kanji_漢字"]);
+		}),
+	);
+
+
+	describe("globRegex",
+		it("Should work with a regex", delegate() {
+			globRegex(`^test/test_regex/[0-9]*$`).shouldEqual([
+				"test/test_regex/111",
+				"test/test_regex/222",
+				"test/test_regex/333"]);
+		}),
+		it("Should require ^ and $ for regexes", delegate() {
+			shouldThrow(delegate() {
+				globRegex(`test/test_regex/[0-9]`);
+			}, "The regex must start with ^ and end with $.");
 		}),
 	);
 }

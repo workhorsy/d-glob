@@ -3,7 +3,7 @@
 
 int main() {
 	import std.stdio : stdout;
-	import glob : glob;
+	import glob : glob, globRegex;
 
 	// Print all the locations of gcc
 	stdout.writefln("Searching for gcc ...");
@@ -13,7 +13,7 @@ int main() {
 
 	// Print all the locations of python
 	stdout.writefln("Searching for python ...");
-	foreach (entry ; glob("/usr/*/python?")) {
+	foreach (entry ; globRegex("^/usr/*/python[0-9]*$")) {
 		stdout.writefln("    %s", entry);
 	}
 
