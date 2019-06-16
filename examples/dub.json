@@ -5,5 +5,5 @@
 	"mainSourceFile": "example.d",
 
 	"dependencies": {
-	},
+	}
 }

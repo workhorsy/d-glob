@@ -2,7 +2,7 @@
 	"name": "d-glob",
 	"description": "Search file systems with glob patterns using the D programming language",
 	"authors": [
-		"Matthew Brennan Jones <matthew.brennan.jones@gmail.com>",
+		"Matthew Brennan Jones <matthew.brennan.jones@gmail.com>"
 	],
 	"homepage": "https://github.com/workhorsy/d-glob",
 	"copyright": "Copyright (c) 2017-2018 Matthew Brennan Jones",
@@ -16,7 +16,7 @@
 			"targetName": "glob",
 			"targetType": "staticLibrary",
 			"dependencies": {
-			},
+			}
 		},
 		{
 			"name": "unittest",
@@ -24,8 +24,8 @@
 			"targetType": "executable",
 			"mainSourceFile": "test/main.d",
 			"dependencies": {
-				"bdd": "~>1.3.0",
-			},
-		},
-	],
+				"bdd": "~>1.3.0"
+			}
+		}
+	]
 }
