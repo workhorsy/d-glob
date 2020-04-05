@@ -7,24 +7,24 @@
 	"homepage": "https://github.com/workhorsy/d-glob",
 	"copyright": "Copyright (c) 2017-2018 Matthew Brennan Jones",
 	"license": "BSL-1.0",
-	"importPaths": ["source/"],
 	"targetPath": "lib",
+	"targetType": "staticLibrary",
 
 	"configurations": [
 		{
 			"name": "default",
 			"targetName": "glob",
-			"targetType": "staticLibrary",
+			"importPaths": ["source/"],
 			"dependencies": {
 			}
 		},
 		{
 			"name": "unittest",
 			"targetName": "glob-test",
-			"targetType": "executable",
-			"mainSourceFile": "test/main.d",
+			"importPaths": ["source/", "test/"],
+			"sourceFiles": ["test/test.d"],
 			"dependencies": {
-				"bdd": "~>1.3.0"
+				"bdd": { "path": "../BDD/" }
 			}
 		}
 	]
