@@ -1,8 +1,8 @@
 
 
-import BDD;
 
 unittest {
+	import BDD;
 	import glob : glob, globRegex;
 
 	describe("glob",
@@ -80,8 +80,4 @@ unittest {
 			}, "The regex must start with ^ and end with $.");
 		}),
 	);
-}
-
-int main() {
-	return BDD.printResults();
 }
