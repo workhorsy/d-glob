@@ -1,4 +1,4 @@
-* Release 0.5.0
+11/18/2024 Release 0.5.0
 	* Fixed Bug #10: Update github actions to v4 and add GDC to test matrix
 	* Fixed Bug #8: Make tests run without main for changes in dmd 2.090
 

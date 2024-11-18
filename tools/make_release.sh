@@ -2,7 +2,11 @@
 # Stop and exit on error
 set -e
 
-VERSION="0.4.0"
+VERSION="0.5.0"
+
+# Change dir to this scripts directory
+script_dir=$(dirname $0)
+cd $script_dir
 
 cd ..
 sed 's/$VERSION/'$VERSION'/g' tools/README.template.md > README.md

@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2020 Matthew Brennan Jones <matthew.brennan.jones@gmail.com>
+// Copyright (c) 2017-2024 Matthew Brennan Jones <matthew.brennan.jones@gmail.com>
 // Boost Software License - Version 1.0
 // Search file systems with glob patterns using the D programming language
 // https://github.com/workhorsy/d-glob
@@ -11,7 +11,7 @@ See Glob  $(LINK https://en.wikipedia.org/wiki/Glob_(programming))
 Home page:
 $(LINK https://github.com/workhorsy/d-glob)
 
-Version: 0.4.0
+Version: 0.5.0
 
 License:
 Boost Software License - Version 1.0
